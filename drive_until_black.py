@@ -1,14 +1,18 @@
 from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, DistanceSensor, Motor, MotorPair
 from spike.control import wait_for_seconds, wait_until, Timer
+import math
 
-hub = PrimeHub()
-drive_pair = MotorPair('A', 'E')
-right_moter = Motor('E')
-left_motor = Motor('A')
-right_sensor = ColorSensor('F')
-left_sensor = ColorSensor('B')
+g_hub = PrimeHub()
+g_drive_pair = MotorPair('A', 'E')
+wheel_distance_apart = 14.5
+wheel_diameter = 4.25
+wheel_circumfrance = 2 * math.pi * wheel_diameter
+g_drive_pair.set_motor_rotation(wheel_circumfrance, 'cm')
+
 
 def go_until_black(hub, drive_pair):
+    right_sensor = ColorSensor('F')
+    left_sensor = ColorSensor('B')
 
     drive_pair.start(0, 30)
     while True:
@@ -16,11 +20,14 @@ def go_until_black(hub, drive_pair):
         left_color = left_sensor.get_color()
 
         if right_color == 'black':
-            right_moter.stop()
+            drive_pair.stop()
+            drive_pair.move_tank(2, 'cm', left_speed=30, right_speed=-10)
         if left_color == 'black':
-            left_motor.stop()
+            drive_pair.stop()
+            drive_pair.move_tank(2, 'cm', left_speed=-10, right_speed=30)
         if right_color == 'black' and left_color == 'black':
             drive_pair.stop()
-            return
+            break
 
-go_until_black(hub, drive_pair)
+
+go_until_black(g_hub, g_drive_pair)
