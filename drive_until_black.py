@@ -6,8 +6,8 @@ g_hub = PrimeHub()
 g_drive_pair = MotorPair('A', 'E')
 wheel_distance_apart = 14.5
 wheel_diameter = 4.25
-wheel_circumfrance = 2 * math.pi * wheel_diameter
-g_drive_pair.set_motor_rotation(wheel_circumfrance, 'cm')
+wheel_circumference = 2 * math.pi * wheel_diameter
+g_drive_pair.set_motor_rotation(wheel_circumference, 'cm')
 
 
 def go_until_black(hub, drive_pair):
@@ -21,10 +21,14 @@ def go_until_black(hub, drive_pair):
 
         if right_color == 'black':
             drive_pair.stop()
-            drive_pair.move_tank(2, 'cm', left_speed=30, right_speed=-10)
+            drive_pair.start_tank(left_speed=30, right_speed=-10)
+            if left_color == 'black':
+                drive_pair.stop()
         if left_color == 'black':
             drive_pair.stop()
-            drive_pair.move_tank(2, 'cm', left_speed=-10, right_speed=30)
+            drive_pair.start_tank(left_speed=-10, right_speed=30)
+            if right_color == 'black':
+                drive_pair.stop()
         if right_color == 'black' and left_color == 'black':
             drive_pair.stop()
             break
