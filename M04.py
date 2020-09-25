@@ -7,8 +7,8 @@ g_hub = PrimeHub()
 g_motor_pair = MotorPair('A', 'E')
 g_front_motor = Motor('F')
 g_wheel_distance_apart = 14.5
-g_wheel_diameter = 4.25
-g_wheel_circumference = 2 * math.pi * g_wheel_diameter
+g_wheel_radius = 4.25
+g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 g_front_motor.set_default_speed(40)
 
