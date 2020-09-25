@@ -9,8 +9,8 @@ right_motor = Motor('E')
 left_color = ColorSensor('B')
 right_color = ColorSensor('D')
 wheel_distance_apart = 14.5
-wheel_diameter = 4.25
-wheel_circumference = 2 * math.pi * wheel_diameter
+wheel_radius = 4.25
+wheel_circumference = 2 * math.pi * wheel_radius
 motor_pair.set_motor_rotation(wheel_circumference, 'cm')
 right_motor.set_default_speed(15)
 i = 0
