@@ -7,8 +7,8 @@ hub = PrimeHub()
 motor_pair = MotorPair('A', 'E')
 front_motor = Motor('D')
 wheel_distance_apart = 14.5
-wheel_diameter = 4.25
-wheel_circumference = 2 * math.pi * wheel_diameter
+wheel_radius = 4.25
+wheel_circumference = 2 * math.pi * wheel_radius
 motor_pair.set_motor_rotation(wheel_circumference, 'cm')
 
 motor_pair.move_tank("""the amount to be in line with M08""", 'cm', left_speed=25, right_speed=25)
