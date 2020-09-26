@@ -12,19 +12,19 @@ g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
 def to_mission(motor_pair):
-    motor_pair.move_tank(70, 'cm', left_speed=30, right_speed=30)
+    motor_pair.move(83, 'cm', steering=0, speed=25)
 
 
 def do_mission(motor_pair):
     i = 0
-    while i < 21.5:
-        motor_pair.move_tank(0.5, 'cm', left_speed=15, right_speed=15)
+    while i < 41:
+        motor_pair.move(0.5, 'cm', steering=0, speed=35)
         print(i)
-        i += 0.5
+        i += 1
 
 
 def go_home(motor_pair):
-    motor_pair.move_tank(90, 'cm', -50, -50)
+    motor_pair.move_tank(100, 'cm', -65, -65)
 
 
 to_mission(g_motor_pair)

@@ -18,15 +18,15 @@ def flip(motor_pair, motor):
     #    motor.run_for_rotations(turns)
     motor.run_for_rotations(-0.05)
     motor_pair.move_tank(22.5, 'cm', left_speed=-25, right_speed=10)
-    motor_pair.move_tank(20, 'cm', left_speed=25, right_speed=25)
+    motor_pair.move_tank(-32, 'cm', left_speed=45, right_speed=25)
 
 
 #    motor.run_for_rotations(-turns)
 
 def to_mission(motor_pair):
-    motor_pair.move_tank(35, 'cm', left_speed=25, right_speed=25)
+    motor_pair.move_tank(-35, 'cm', left_speed=25, right_speed=25)
     motor_pair.move_tank(2, 'cm', left_speed=25, right_speed=0)
-    motor_pair.move_tank(7.5, 'cm', left_speed=25, right_speed=25)
+    motor_pair.move_tank(-10, 'cm', left_speed=25, right_speed=25)
 
 
 # main code
