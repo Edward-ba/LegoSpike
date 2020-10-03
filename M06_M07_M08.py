@@ -5,7 +5,7 @@ from spike.control import wait_for_seconds, wait_until, Timer
 
 g_hub = PrimeHub()
 g_front_motor = Motor('F')
-g_front_motor.set_default_speed(35)
+g_front_motor.set_default_speed(30)
 g_motor_pair = MotorPair('A', 'E')
 wheel_distance_apart = 14.5
 wheel_radius = 4.25
@@ -14,7 +14,7 @@ g_motor_pair.set_motor_rotation(wheel_circumfrance, 'cm')
 
 
 def flip(motor_pair, motor):
-    turns = 0.30
+    turns = 0.25
     motor.run_for_rotations(turns)
     motor.run_for_rotations(-turns)
 
@@ -75,7 +75,7 @@ def turn_test(hub, motor_pair):
 #turn_test(g_hub, g_motor_pair)
 
 def to_mission(hub, motor_pair, front_motor):
-    drive(hub, motor_pair, 95, 25)
+    drive(hub, motor_pair, 94.5, 24)
     turn(hub, motor_pair, -90)
     drive(hub, motor_pair, 50, 25)
     turn(hub, motor_pair, 50)
@@ -84,18 +84,35 @@ def to_mission(hub, motor_pair, front_motor):
     turn(hub, motor_pair, -10)
     flip(motor_pair, front_motor)
 
-    #to dance
-    turn(hub, motor_pair, 65)
-    turn(hub, motor_pair, -65)
 
-
-    drive(hub, motor_pair, -30, 25)
-    turn(hub, motor_pair, -90)
+def to_dump(hub, motor_pair, front_motor):
+    turn(hub, motor_pair, 50)
     front_motor.run_for_rotations(0.5)
-    drive(hub, motor_pair, 15, 25)
+    turn(hub, motor_pair, 90)
+    drive(hub, motor_pair, -15, 10)
+
+
+def to_dance(hub, motor_pair, front_motor):
+    drive(hub, motor_pair, 15, 10)
+    turn(hub, motor_pair, 90)
+    drive(hub, motor_pair, 30, 25)
+    turn(hub, motor_pair, 90)
+    drive(hub, motor_pair, 20, 25)
+
     while True:
         turn(hub, motor_pair, 60)
         turn(hub, motor_pair, -60)
 
 
+def to_rdump(hub, motor_pair, front_motor):
+    turn(hub, motor_pair, -90)
+    front_motor.run_for_rotations(-0.5)
+    turn(hub, motor_pair, -50)
+
+
+# start the robot with the thing right of the right wheel lined up with the line to the left of the top of the white word CHALLENGE
+# the back of the robot lined up with the line 1st from the thick black line
+
 to_mission(g_hub, g_motor_pair, g_front_motor)
+to_dump(g_hub, g_motor_pair, g_front_motor)
+to_dance(g_hub, g_motor_pair, g_front_motor)
