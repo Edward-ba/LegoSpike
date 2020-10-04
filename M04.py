@@ -15,13 +15,10 @@ g_front_motor.set_default_speed(40)
 
 def flip(motor_pair, motor):
     turns = 0.35
-    #    motor.run_for_rotations(turns)
     motor.run_for_rotations(-0.05)
     motor_pair.move_tank(22.5, 'cm', left_speed=-25, right_speed=10)
     motor_pair.move_tank(-32, 'cm', left_speed=45, right_speed=25)
 
-
-#    motor.run_for_rotations(-turns)
 
 def to_mission(motor_pair):
     motor_pair.move_tank(-35, 'cm', left_speed=25, right_speed=25)
@@ -30,9 +27,5 @@ def to_mission(motor_pair):
 
 
 # main code
-# motor_pair.move_tank(35, 'cm', left_speed=25, right_speed=25)
 to_mission(g_motor_pair)
 flip(g_motor_pair, g_front_motor)
-
-# motor_pair.move_tank(10.5, 'cm', left_speed=-25, right_speed=25)
-# motor_pair.start_motor(25, 25)

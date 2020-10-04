@@ -5,10 +5,10 @@ import math
 
 g_hub = PrimeHub()
 g_motor_pair = MotorPair('A', 'E')
-wheel_distance_apart = 14.5
-wheel_radius = 4.25
-wheel_circumference = 2 * math.pi * wheel_radius
-g_motor_pair.set_motor_rotation(wheel_circumference, 'cm')
+g_wheel_distance_apart = 14.5
+g_wheel_radius = 4.25
+g_wheel_circumference = 2 * math.pi * g_wheel_radius
+g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
 def go_until_black(hub, motor_pair):

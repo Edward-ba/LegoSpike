@@ -5,14 +5,13 @@ import math
 
 g_hub = PrimeHub()
 g_motor_pair = MotorPair('A', 'E')
-wheel_distance_apart = 14.5
-wheel_radius = 4.25
-wheel_circumference = 2 * math.pi * wheel_radius
-g_motor_pair.set_motor_rotation(wheel_circumference, 'cm')
+g_wheel_distance_apart = 14.5
+g_wheel_radius = 4.25
+g_wheel_circumference = 2 * math.pi * g_wheel_radius
+g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
 def turn(hub, motor_pair, angle_to_turn):
-    # if (angle_to_turn > 0 and angle_to_turn < 150) or (angle_to_turn < 0 and angle_to_turn > -150):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
         fudge = 0.7

@@ -24,7 +24,6 @@ def drive(hub, motor_pair, dist, spd):
 
 
 def turn(hub, motor_pair, angle_to_turn):
-    # if (angle_to_turn > 0 and angle_to_turn < 150) or (angle_to_turn < 0 and angle_to_turn > -150):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
         fudge = 0.7
@@ -61,18 +60,18 @@ def turn(hub, motor_pair, angle_to_turn):
 
 def drive_test(hub, motor_pair):
     drive(hub, motor_pair, 90, 50)
-    print ('Orientation', hub.motion_sensor.get_orientation())
+    print('Orientation', hub.motion_sensor.get_orientation())
     drive(hub, motor_pair, -60, 50)
 
 
 def turn_test(hub, motor_pair):
     turn(hub, motor_pair, -90)
-    print ('Orientation', hub.motion_sensor.get_orientation())
+    print('Orientation', hub.motion_sensor.get_orientation())
     turn(hub, motor_pair, 90)
 
 
 # drive_test(g_hub, g_motor_pair)
-#turn_test(g_hub, g_motor_pair)
+# turn_test(g_hub, g_motor_pair)
 
 def to_mission(hub, motor_pair, front_motor):
     drive(hub, motor_pair, 94.5, 24)
@@ -110,7 +109,8 @@ def to_rdump(hub, motor_pair, front_motor):
     turn(hub, motor_pair, -50)
 
 
-# start the robot with the thing right of the right wheel lined up with the line to the left of the top of the white word CHALLENGE
+# start the robot with the thing right of the right wheel lined up with the line to the left of the top of the white
+# word CHALLENGE
 # the back of the robot lined up with the line 1st from the thick black line
 
 to_mission(g_hub, g_motor_pair, g_front_motor)
