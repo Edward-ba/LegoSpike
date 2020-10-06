@@ -13,10 +13,17 @@ g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
-def flip(motor_pair, motor):
-    turns = 0.25
-    motor.run_for_rotations(turns)
-    motor.run_for_rotations(-turns)
+def move_up(hub, motor_pair, front_motor):
+    front_motor.run_for_rotations(0.25)
+
+
+def move_down(hub, motor_pair, front_motor):
+    front_motor.run_for_rotations(-0.25)
+
+
+def flip(hub, motor_pair, front_motor):
+    move_up(hub, motor_pair, front_motor)
+    move_down(hub, motor_pair, front_motor)
 
 
 def drive(hub, motor_pair, dist, spd):
@@ -24,6 +31,7 @@ def drive(hub, motor_pair, dist, spd):
 
 
 def turn(hub, motor_pair, angle_to_turn):
+    # if (angle_to_turn > 0 and angle_to_turn < 150) or (angle_to_turn < 0 and angle_to_turn > -150):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
         fudge = 0.7
@@ -81,7 +89,7 @@ def to_mission(hub, motor_pair, front_motor):
     drive(hub, motor_pair, 2.5, 10)
     drive(hub, motor_pair, -1, 10)
     turn(hub, motor_pair, -10)
-    flip(motor_pair, front_motor)
+    flip(hub, motor_pair, front_motor)
 
 
 def to_dump(hub, motor_pair, front_motor):
@@ -89,6 +97,11 @@ def to_dump(hub, motor_pair, front_motor):
     front_motor.run_for_rotations(0.5)
     turn(hub, motor_pair, 90)
     drive(hub, motor_pair, -15, 10)
+
+
+def dump(hub, motor_pair, front_motor):
+    move_down(hub, motor_pair, front_motor)
+    move_up(hub, motor_pair, front_motor)
 
 
 def to_dance(hub, motor_pair, front_motor):
@@ -115,4 +128,5 @@ def to_rdump(hub, motor_pair, front_motor):
 
 to_mission(g_hub, g_motor_pair, g_front_motor)
 to_dump(g_hub, g_motor_pair, g_front_motor)
+dump(g_hub, g_motor_pair, g_front_motor)
 to_dance(g_hub, g_motor_pair, g_front_motor)
