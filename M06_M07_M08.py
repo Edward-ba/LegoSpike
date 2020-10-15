@@ -6,6 +6,8 @@ from spike.control import wait_for_seconds, wait_until, Timer
 g_hub = PrimeHub()
 g_front_motor = Motor('F')
 g_front_motor.set_default_speed(30)
+g_back_motor = Motor('C')
+g_back_motor.set_default_speed(30)
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
 g_wheel_radius = 4.25
@@ -13,17 +15,17 @@ g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
-def move_up(hub, motor_pair, front_motor):
-    front_motor.run_for_rotations(0.25)
+def move_up(hub, motor_pair, motor):
+    motor.run_for_rotations(0.25)
 
 
-def move_down(hub, motor_pair, front_motor):
-    front_motor.run_for_rotations(-0.25)
+def move_down(hub, motor_pair, motor):
+    motor.run_for_rotations(-0.25)
 
 
-def flip(hub, motor_pair, front_motor):
-    move_up(hub, motor_pair, front_motor)
-    move_down(hub, motor_pair, front_motor)
+def flip(hub, motor_pair, motor):
+    move_up(hub, motor_pair, motor)
+    move_down(hub, motor_pair, motor)
 
 
 def drive(hub, motor_pair, dist, spd):
@@ -81,7 +83,7 @@ def turn_test(hub, motor_pair):
 # drive_test(g_hub, g_motor_pair)
 # turn_test(g_hub, g_motor_pair)
 
-def to_mission(hub, motor_pair, front_motor):
+def to_mission(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, 94.5, 24)
     turn(hub, motor_pair, -90)
     drive(hub, motor_pair, 50, 25)
@@ -92,19 +94,19 @@ def to_mission(hub, motor_pair, front_motor):
     flip(hub, motor_pair, front_motor)
 
 
-def to_dump(hub, motor_pair, front_motor):
+def to_dump(hub, motor_pair, front_motor, back_motor):
     turn(hub, motor_pair, 50)
     front_motor.run_for_rotations(0.5)
     turn(hub, motor_pair, 90)
     drive(hub, motor_pair, -15, 10)
 
 
-def dump(hub, motor_pair, front_motor):
-    move_down(hub, motor_pair, front_motor)
-    move_up(hub, motor_pair, front_motor)
+def dump(hub, motor_pair, front_motor, back_motor):
+    move_down(hub, motor_pair, back_motor)
+    move_up(hub, motor_pair, back_motor)
 
 
-def to_dance(hub, motor_pair, front_motor):
+def to_dance(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, 15, 10)
     turn(hub, motor_pair, 90)
     drive(hub, motor_pair, 30, 25)
@@ -116,7 +118,7 @@ def to_dance(hub, motor_pair, front_motor):
         turn(hub, motor_pair, -60)
 
 
-def to_rdump(hub, motor_pair, front_motor):
+def to_rdump(hub, motor_pair, front_motor, back_motor):
     turn(hub, motor_pair, -90)
     front_motor.run_for_rotations(-0.5)
     turn(hub, motor_pair, -50)
@@ -126,7 +128,7 @@ def to_rdump(hub, motor_pair, front_motor):
 # word CHALLENGE
 # the back of the robot lined up with the line 1st from the thick black line
 
-to_mission(g_hub, g_motor_pair, g_front_motor)
-to_dump(g_hub, g_motor_pair, g_front_motor)
-dump(g_hub, g_motor_pair, g_front_motor)
-to_dance(g_hub, g_motor_pair, g_front_motor)
+to_mission(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+to_dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+to_dance(g_hub, g_motor_pair, g_front_motor, g_back_motor)
