@@ -7,7 +7,7 @@ g_hub = PrimeHub()
 g_front_motor = Motor('F')
 g_front_motor.set_default_speed(30)
 g_back_motor = Motor('C')
-g_back_motor.set_default_speed(30)
+g_back_motor.set_default_speed(15)
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
 g_wheel_radius = 4.25
@@ -15,17 +15,14 @@ g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
-def move_up(hub, motor_pair, motor):
-    motor.run_for_rotations(0.25)
-
-
-def move_down(hub, motor_pair, motor):
-    motor.run_for_rotations(-0.25)
+def arm_move(hub, motor_pair, motor, amount):
+    motor.run_for_rotations(amount)
 
 
 def flip(hub, motor_pair, motor):
-    move_up(hub, motor_pair, motor)
-    move_down(hub, motor_pair, motor)
+    amount = 0.25
+    arm_move(hub, motor_pair, motor, amount)
+    arm_move(hub, motor_pair, motor, -amount)
 
 
 def drive(hub, motor_pair, dist, spd):
@@ -102,16 +99,23 @@ def to_dump(hub, motor_pair, front_motor, back_motor):
 
 
 def dump(hub, motor_pair, front_motor, back_motor):
-    move_down(hub, motor_pair, back_motor)
-    move_up(hub, motor_pair, back_motor)
+    full = 0.8
+    tiny = 0.1
+
+    back_motor.run_for_rotations(-full)
+    for x in range(3):
+        arm_move(hub, motor_pair, back_motor, tiny)
+        arm_move(hub, motor_pair, back_motor, -tiny)
+    back_motor.run_for_rotations(full)
 
 
 def to_dance(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, 15, 10)
     turn(hub, motor_pair, 90)
     drive(hub, motor_pair, 30, 25)
-    turn(hub, motor_pair, 90)
-    drive(hub, motor_pair, 20, 25)
+    turn(hub, motor_pair, -90)
+    drive(hub, motor_pair, -20, 25)
+    arm_move(hub, motor_pair, -0.5)
 
     while True:
         turn(hub, motor_pair, 60)
