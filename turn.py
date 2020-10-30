@@ -1,9 +1,13 @@
+import math
 from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, \
     DistanceSensor, Motor, MotorPair
 from spike.control import wait_for_seconds, wait_until, Timer
-import math
 
 g_hub = PrimeHub()
+g_front_motor = Motor('F')
+g_front_motor.set_default_speed(30)
+g_back_motor = Motor('C')
+g_back_motor.set_default_speed(30)
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
 g_wheel_radius = 4.25
@@ -12,6 +16,7 @@ g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
 
 def turn(hub, motor_pair, angle_to_turn):
+    # if (angle_to_turn > 0 and angle_to_turn < 150) or (angle_to_turn < 0 and angle_to_turn > -150):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
         fudge = 0.7
@@ -46,13 +51,4 @@ def turn(hub, motor_pair, angle_to_turn):
                 break
 
 
-def turn_test(hub, motor_pair):
-    turn(hub, motor_pair, -90)
-    turn(hub, motor_pair, 90)
-    turn(hub, motor_pair, 45)
-    turn(hub, motor_pair, -45)
-    turn(hub, motor_pair, 180)
-    turn(hub, motor_pair, -180)
-
-
-turn_test(g_hub, g_motor_pair)
+turn(g_hub, g_motor_pair, 90)
