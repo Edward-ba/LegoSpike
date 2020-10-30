@@ -81,11 +81,11 @@ def turn_test(hub, motor_pair):
 # turn_test(g_hub, g_motor_pair)
 
 def to_mission(hub, motor_pair, front_motor, back_motor):
-    drive(hub, motor_pair, 94.5, 24)
+    drive(hub, motor_pair, 98, 24)
     turn(hub, motor_pair, -90)
-    drive(hub, motor_pair, 50, 25)
+    drive(hub, motor_pair, 47.5, 25)
     turn(hub, motor_pair, 50)
-    drive(hub, motor_pair, 2.5, 10)
+    drive(hub, motor_pair, 4, 10)
     drive(hub, motor_pair, -1, 10)
     turn(hub, motor_pair, -10)
     flip(hub, motor_pair, front_motor)
@@ -93,13 +93,13 @@ def to_mission(hub, motor_pair, front_motor, back_motor):
 
 def to_dump(hub, motor_pair, front_motor, back_motor):
     turn(hub, motor_pair, 50)
-    front_motor.run_for_rotations(0.5)
+    arm_move(hub, motor_pair, front_motor, 0.6)
     turn(hub, motor_pair, 90)
     drive(hub, motor_pair, -15, 10)
 
 
 def dump(hub, motor_pair, front_motor, back_motor):
-    full = 0.8
+    full = 0.7
     tiny = 0.1
 
     back_motor.run_for_rotations(-full)
@@ -135,4 +135,4 @@ def to_rdump(hub, motor_pair, front_motor, back_motor):
 to_mission(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 to_dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
-to_dance(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+#to_dance(g_hub, g_motor_pair, g_front_motor, g_back_motor)
