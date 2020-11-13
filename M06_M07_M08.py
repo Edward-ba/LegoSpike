@@ -88,6 +88,7 @@ def to_mission(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, 4, 10)
     drive(hub, motor_pair, -1, 10)
     turn(hub, motor_pair, -10)
+    drive(hub, motor_pair, -2)
     flip(hub, motor_pair, front_motor)
 
 
@@ -135,4 +136,4 @@ def to_rdump(hub, motor_pair, front_motor, back_motor):
 to_mission(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 to_dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
-#to_dance(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+to_dance(g_hub, g_motor_pair, g_front_motor, g_back_motor)
