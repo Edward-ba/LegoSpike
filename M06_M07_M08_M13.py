@@ -30,7 +30,6 @@ def drive(hub, motor_pair, dist, spd):
 
 
 def turn(hub, motor_pair, angle_to_turn):
-    # if (angle_to_turn > 0 and angle_to_turn < 150) or (angle_to_turn < 0 and angle_to_turn > -150):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
         fudge = 0.7
@@ -77,10 +76,7 @@ def turn_test(hub, motor_pair):
     turn(hub, motor_pair, 90)
 
 
-# drive_test(g_hub, g_motor_pair)
-# turn_test(g_hub, g_motor_pair)
-
-def to_mission(hub, motor_pair, front_motor, back_motor):
+def to_M08(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, 97.5, 24)
     turn(hub, motor_pair, -91)
     drive(hub, motor_pair, 56.5, 25)
@@ -93,6 +89,23 @@ def to_mission(hub, motor_pair, front_motor, back_motor):
     turn(hub, motor_pair, 110)
     drive(hub, motor_pair, -7, 10)
     arm_move(hub, motor_pair, front_motor, -0.5)
+
+
+def from_M08_to_M13(hub, motor_pair, front_motor, back_motor):
+    motor_pair.move(10, 'cm', steering=0, speed=25)
+    turn(hub, motor_pair, -90)
+    motor_pair.move(40, 'cm', steering=0, speed=25)
+    turn(hub, motor_pair, -90)
+    motor_pair.move(30, 'cm', steering=0, speed=25)
+    motor_pair.move(-3, 'cm', steering=0, speed=25)
+    turn(hub, motor_pair, 90)
+    motor_pair.move(1, 'cm', steering=0, speed=25)
+    motor_pair.move(7, 'cm', steering=0, speed=5)
+    front_motor.run_for_rotations(-.75, 100)
+    motor_pair.move(-10, 'cm', steering=0, speed=5)
+    front_motor.run_for_rotations(.75, 100)
+    turn(hub, motor_pair, 90)
+    motor_pair.move(20, 'cm', steering=0, speed=25)
 
 
 def to_dump(hub, motor_pair, front_motor, back_motor):
@@ -122,15 +135,10 @@ def to_dance(hub, motor_pair, front_motor, back_motor):
         turn(hub, motor_pair, -60)
 
 
-def to_rdump(hub, motor_pair, front_motor, back_motor):
-    turn(hub, motor_pair, -90)
-    front_motor.run_for_rotations(-0.5)
-    turn(hub, motor_pair, -50)
-
-
 # start the robot with the thing right of the right wheel lined up with the line to the left of the top of the white
 # word CHALLENGE
 # the back of the robot lined up with the line 1st from the thick black line
 
-to_mission(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+to_M08(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+from_M08_to_M13(g_hub, g_motor_pair, g_front_motor, g_back_motor)
