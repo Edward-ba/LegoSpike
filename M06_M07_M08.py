@@ -81,17 +81,18 @@ def turn_test(hub, motor_pair):
 # turn_test(g_hub, g_motor_pair)
 
 def to_mission(hub, motor_pair, front_motor, back_motor):
-    drive(hub, motor_pair, 99, 24)
-    turn(hub, motor_pair, -90)
-    drive(hub, motor_pair, 56, 25)
+    drive(hub, motor_pair, 97.5, 24)
+    turn(hub, motor_pair, -91)
+    drive(hub, motor_pair, 56.5, 25)
     turn(hub, motor_pair, 70)
     arm_move(hub, motor_pair, front_motor, 0.2)
     drive(hub, motor_pair, 5, 10)
     drive(hub, motor_pair, -4, 10)
     arm_move(hub, motor_pair, front_motor, 0.3)
-    arm_move(hub, motor_pair, front_motor, -0.5)
+    drive(hub, motor_pair, -1, 10)
     turn(hub, motor_pair, 110)
     drive(hub, motor_pair, -7, 10)
+    arm_move(hub, motor_pair, front_motor, -0.5)
 
 
 def to_dump(hub, motor_pair, front_motor, back_motor):
