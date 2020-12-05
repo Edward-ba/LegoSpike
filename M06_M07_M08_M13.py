@@ -8,7 +8,7 @@ g_hub = PrimeHub()
 g_front_motor = Motor('F')
 g_front_motor.set_default_speed(30)
 g_back_motor = Motor('C')
-g_back_motor.set_default_speed(15)
+g_back_motor.set_default_speed(10)
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
 g_wheel_radius = 4.25
@@ -73,20 +73,22 @@ def dump(hub, motor_pair, front_motor, back_motor):
 def to_M08(hub, motor_pair, front_motor, back_motor):
 
     # Get bocce ball court
-    drive(hub, motor_pair, 97.5, 24)
+    drive(hub, motor_pair, 97.5, 25)
     turn(hub, motor_pair, -91)
-    drive(hub, motor_pair, 56.5, 25)
+    drive(hub, motor_pair, 56.5, 30)
 
     # flip one piece into the court & setup for dump
     turn(hub, motor_pair, 70)
     arm_move(hub, motor_pair, front_motor, 0.2)
     drive(hub, motor_pair, 5, 10)
     drive(hub, motor_pair, -4, 10)
-    arm_move(hub, motor_pair, front_motor, 0.3)
+    arm_move(hub, motor_pair, front_motor, 0.30)
+    arm_move(hub, motor_pair, front_motor, -0.20)
+
     drive(hub, motor_pair, -1, 10)
     turn(hub, motor_pair, 110)
     drive(hub, motor_pair, -7, 10)
-    arm_move(hub, motor_pair, front_motor, -0.5)
+    arm_move(hub, motor_pair, front_motor, 0.40)
 
     # dump remaining blocks
     dump(hub, motor_pair, front_motor, back_motor)
@@ -98,33 +100,32 @@ def from_M08_to_M13(hub, motor_pair, front_motor, back_motor):
     # move from bocce ball to weight machine and slam into wall
     motor_pair.move(10, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, -90)
-    motor_pair.move(40, 'cm', steering=0, speed=25)
+    motor_pair.move(41, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, -90)
     motor_pair.move(30, 'cm', steering=0, speed=25)
 
     # move back 3 cm and turn, pull down weight machine
     motor_pair.move(-3, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, 90)
-    motor_pair.move(1, 'cm', steering=0, speed=25)
-    motor_pair.move(7, 'cm', steering=0, speed=5)
+    motor_pair.move(7.5, 'cm', steering=0, speed=5)
     front_motor.run_for_rotations(-.75, 100)
-    motor_pair.move(-10, 'cm', steering=0, speed=5)
-    front_motor.run_for_rotations(.75, 100)
+    motor_pair.move(-5, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, 90)
-    motor_pair.move(20, 'cm', steering=0, speed=25)
-
+    motor_pair.move(-6, 'cm', steering=0, speed=25)
+    front_motor.run_for_rotations(.75, 100)
 
 def to_dance(hub, motor_pair, front_motor, back_motor):
-    drive(hub, motor_pair, 15, 10)
+    motor_pair.move(28, 'cm', steering=0, speed=30)
     turn(hub, motor_pair, 90)
-    drive(hub, motor_pair, 30, 25)
-    turn(hub, motor_pair, -90)
-    drive(hub, motor_pair, -20, 25)
-    arm_move(hub, motor_pair, -0.5)
+    motor_pair.move(70, 'cm', steering=0, speed=40)
+    turn(hub, motor_pair, 90)
+    motor_pair.move(18, 'cm', steering=0, speed=35)
+    motor_pair.move(180, 'degrees', steering=100, speed=25)
+    front_motor.run_for_rotations(-.75, 100)
 
     while True:
-        turn(hub, motor_pair, 60)
-        turn(hub, motor_pair, -60)
+        motor_pair.move(50, 'degrees', steering=100, speed=25)
+        motor_pair.move(-50, 'degrees', steering=100, speed=25)
 
 
 ###### MAIN CODE ##############
@@ -133,9 +134,12 @@ def to_dance(hub, motor_pair, front_motor, back_motor):
 # the back of the robot lined up with the line 1st from the thick black line
 to_M08(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 from_M08_to_M13(g_hub, g_motor_pair, g_front_motor, g_back_motor)
-
+to_dance (g_hub, g_motor_pair, g_front_motor, g_back_motor)
 ###### MAIN CODE ##############
-
+# arm_move(g_hub, g_motor_pair, g_front_motor, 0.5)
+# arm_move(g_hub, g_motor_pair, g_front_motor, -0.5)
+# arm_move(g_hub, g_motor_pair, g_back_motor, 0.5)
+# arm_move(g_hub, g_motor_pair, g_back_motor, -0.5)
 
 # Old code
 def to_dump(hub, motor_pair, front_motor, back_motor):
@@ -154,7 +158,3 @@ def turn_test(hub, motor_pair):
     turn(hub, motor_pair, -90)
     print('Orientation', hub.motion_sensor.get_orientation())
     turn(hub, motor_pair, 90)
-
-
-
-
