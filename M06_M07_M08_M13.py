@@ -3,6 +3,7 @@ from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, Motio
     DistanceSensor, Motor, MotorPair
 from spike.control import wait_for_seconds, wait_until, Timer
 
+# Set globals
 g_hub = PrimeHub()
 g_front_motor = Motor('F')
 g_front_motor.set_default_speed(30)
@@ -14,21 +15,19 @@ g_wheel_radius = 4.25
 g_wheel_circumference = 2 * math.pi * g_wheel_radius
 g_motor_pair.set_motor_rotation(g_wheel_circumference, 'cm')
 
-
+# utility methods
 def arm_move(hub, motor_pair, motor, amount):
     motor.run_for_rotations(amount)
-
 
 def flip(hub, motor_pair, motor):
     amount = 0.25
     arm_move(hub, motor_pair, motor, amount)
     arm_move(hub, motor_pair, motor, -amount)
 
-
 def drive(hub, motor_pair, dist, spd):
     motor_pair.move(dist, 'cm', steering=0, speed=spd)
 
-
+# turns a robot a fixed angle
 def turn(hub, motor_pair, angle_to_turn):
     if angle_to_turn != 0:
         print('AngleToTurn', angle_to_turn)
@@ -63,23 +62,22 @@ def turn(hub, motor_pair, angle_to_turn):
             else:
                 break
 
-
-def drive_test(hub, motor_pair):
-    drive(hub, motor_pair, 90, 50)
-    print('Orientation', hub.motion_sensor.get_orientation())
-    drive(hub, motor_pair, -60, 50)
-
-
-def turn_test(hub, motor_pair):
-    turn(hub, motor_pair, -90)
-    print('Orientation', hub.motion_sensor.get_orientation())
-    turn(hub, motor_pair, 90)
+def dump(hub, motor_pair, front_motor, back_motor):
+    full = 0.7
+    back_motor.run_for_rotations(-full)
+    back_motor.run_for_rotations(full)
 
 
+# do bocce Ball.
+# 1. Get to Bocce ball court
 def to_M08(hub, motor_pair, front_motor, back_motor):
+
+    # Get bocce ball court
     drive(hub, motor_pair, 97.5, 24)
     turn(hub, motor_pair, -91)
     drive(hub, motor_pair, 56.5, 25)
+
+    # flip one piece into the court & setup for dump
     turn(hub, motor_pair, 70)
     arm_move(hub, motor_pair, front_motor, 0.2)
     drive(hub, motor_pair, 5, 10)
@@ -90,13 +88,21 @@ def to_M08(hub, motor_pair, front_motor, back_motor):
     drive(hub, motor_pair, -7, 10)
     arm_move(hub, motor_pair, front_motor, -0.5)
 
+    # dump remaining blocks
+    dump(hub, motor_pair, front_motor, back_motor)
 
+
+# move from Bocce ball to weights machine
 def from_M08_to_M13(hub, motor_pair, front_motor, back_motor):
+
+    # move from bocce ball to weight machine and slam into wall
     motor_pair.move(10, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, -90)
     motor_pair.move(40, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, -90)
     motor_pair.move(30, 'cm', steering=0, speed=25)
+
+    # move back 3 cm and turn, pull down weight machine
     motor_pair.move(-3, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, 90)
     motor_pair.move(1, 'cm', steering=0, speed=25)
@@ -106,20 +112,6 @@ def from_M08_to_M13(hub, motor_pair, front_motor, back_motor):
     front_motor.run_for_rotations(.75, 100)
     turn(hub, motor_pair, 90)
     motor_pair.move(20, 'cm', steering=0, speed=25)
-
-
-def to_dump(hub, motor_pair, front_motor, back_motor):
-    turn(hub, motor_pair, 50)
-    arm_move(hub, motor_pair, front_motor, 0.6)
-    turn(hub, motor_pair, 90)
-    drive(hub, motor_pair, -15, 10)
-
-
-def dump(hub, motor_pair, front_motor, back_motor):
-    full = 0.7
-
-    back_motor.run_for_rotations(-full)
-    back_motor.run_for_rotations(full)
 
 
 def to_dance(hub, motor_pair, front_motor, back_motor):
@@ -135,10 +127,34 @@ def to_dance(hub, motor_pair, front_motor, back_motor):
         turn(hub, motor_pair, -60)
 
 
+###### MAIN CODE ##############
 # start the robot with the thing right of the right wheel lined up with the line to the left of the top of the white
 # word CHALLENGE
 # the back of the robot lined up with the line 1st from the thick black line
-
 to_M08(g_hub, g_motor_pair, g_front_motor, g_back_motor)
-dump(g_hub, g_motor_pair, g_front_motor, g_back_motor)
 from_M08_to_M13(g_hub, g_motor_pair, g_front_motor, g_back_motor)
+
+###### MAIN CODE ##############
+
+
+# Old code
+def to_dump(hub, motor_pair, front_motor, back_motor):
+    turn(hub, motor_pair, 50)
+    arm_move(hub, motor_pair, front_motor, 0.6)
+    turn(hub, motor_pair, 90)
+    drive(hub, motor_pair, -15, 10)
+
+def drive_test(hub, motor_pair):
+    drive(hub, motor_pair, 90, 50)
+    print('Orientation', hub.motion_sensor.get_orientation())
+    drive(hub, motor_pair, -60, 50)
+
+
+def turn_test(hub, motor_pair):
+    turn(hub, motor_pair, -90)
+    print('Orientation', hub.motion_sensor.get_orientation())
+    turn(hub, motor_pair, 90)
+
+
+
+
