@@ -8,7 +8,7 @@ g_hub = PrimeHub()
 g_front_motor = Motor('F')
 g_front_motor.set_default_speed(30)
 g_back_motor = Motor('C')
-g_back_motor.set_default_speed(10)
+g_back_motor.set_default_speed(50)
 g_motor_pair = MotorPair('A', 'E')
 g_wheel_distance_apart = 14.5
 g_wheel_radius = 4.25
@@ -72,7 +72,7 @@ def dump(hub, motor_pair, front_motor, back_motor):
 # 1. Get to Bocce ball court
 def to_M08(hub, motor_pair, front_motor, back_motor):
 
-    # Get bocce ball court
+    # Get to bocce ball court
     drive(hub, motor_pair, 97.5, 25)
     turn(hub, motor_pair, -91)
     drive(hub, motor_pair, 56.5, 30)
@@ -81,11 +81,11 @@ def to_M08(hub, motor_pair, front_motor, back_motor):
     turn(hub, motor_pair, 70)
     arm_move(hub, motor_pair, front_motor, 0.2)
     drive(hub, motor_pair, 5, 10)
-    drive(hub, motor_pair, -4, 10)
+    drive(hub, motor_pair, -3, 10)
     arm_move(hub, motor_pair, front_motor, 0.30)
     arm_move(hub, motor_pair, front_motor, -0.20)
 
-    drive(hub, motor_pair, -1, 10)
+    drive(hub, motor_pair, -2, 10)
     turn(hub, motor_pair, 110)
     drive(hub, motor_pair, -7, 10)
     arm_move(hub, motor_pair, front_motor, 0.40)
@@ -107,9 +107,9 @@ def from_M08_to_M13(hub, motor_pair, front_motor, back_motor):
     # move back 3 cm and turn, pull down weight machine
     motor_pair.move(-3, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, 90)
-    motor_pair.move(7.5, 'cm', steering=0, speed=5)
+    motor_pair.move(6, 'cm', steering=0, speed=5)
     front_motor.run_for_rotations(-.75, 100)
-    motor_pair.move(-5, 'cm', steering=0, speed=25)
+    motor_pair.move(-3.5, 'cm', steering=0, speed=25)
     turn(hub, motor_pair, 90)
     motor_pair.move(-6, 'cm', steering=0, speed=25)
     front_motor.run_for_rotations(.75, 100)
